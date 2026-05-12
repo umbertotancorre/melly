@@ -1,0 +1,31 @@
+{
+  "name": "melly",
+  "version": "1.0.0",
+  "description": "FreeStyle Libre glucose in the macOS menu bar",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --mac"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.29.2"
+  },
+  "devDependencies": {
+    "electron": "^34.0.0",
+    "electron-builder": "^26.8.1"
+  },
+  "build": {
+    "appId": "com.melly.app",
+    "productName": "Melly",
+    "mac": {
+      "category": "public.app-category.healthcare-fitness",
+      "target": [{ "target": "dmg", "arch": ["arm64", "x64"] }]
+    },
+    "files": [
+      "main.js",
+      "libreClient.js",
+      "settings.html",
+      "renderer.js"
+    ]
+  }
+}

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Melly</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      font-size: 13px;
+      background: #f5f5f7;
+      color: #1c1c1c;
+      padding: 24px;
+      -webkit-app-region: drag;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .header {
+      margin-bottom: 32px;
+    }
+
+    
+
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    p.subtitle {
+      color: #86868b;
+      font-size: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #555;
+      font-size: 14px;
+    }
+
+    .select-wrapper {
+      position: relative;
+    }
+
+    .select-wrapper::after {
+      content: '';
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2386868b' stroke-width='2'%3E%3Cpolyline points='6,9 12,15 18,9'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      pointer-events: none;
+    }
+
+    input, select {
+      -webkit-app-region: no-drag;
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #d2d2d7;
+      border-radius: 6px;
+      font-size: 14px;
+      background: #fff;
+      color: #1d1d1f;
+      outline: none;
+      transition: all 0.2s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .password-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .password-wrapper input {
+      padding-right: 36px;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #86868b;
+    }
+
+    .toggle-password:hover {
+      color: #1d1d1f;
+    }
+
+    input:disabled, select:disabled {
+      opacity: 0.6;
+    }
+
+    input:focus, select:focus {
+      border-color: #0071e3;
+    }
+
+    input::placeholder {
+      color: #a1a1a6;
+    }
+
+    button {
+      -webkit-app-region: no-drag;
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.2s, box-shadow 0.2s;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #saveBtn {
+      background: #0071e3;
+      color: #fff;
+    }
+
+    #saveBtn:hover {
+      background: #005bb5;
+    }
+
+    #saveBtn.disconnect {
+      background: #ff3b30;
+      color: #fff;
+    }
+
+    #saveBtn.disconnect:hover {
+      background: #cc3b32;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    #status {
+      margin-top: 16px;
+      font-size: 12px;
+      text-align: center;
+      min-height: 18px;
+      border-radius: 6px;
+      padding: 8px;
+      transition: all 0.3s;
+    }
+
+    #status.error {
+      background: #fff0f0;
+      color: #ff3b30;
+    }
+
+    #status.success {
+      background: #f0fff4;
+      color: #34c759;
+    }
+
+@media (prefers-color-scheme: dark) {
+      body { background: #1c1c1c; color: #f5f5f7; }
+      #saveBtn { background: #0a84ff; color: #fff; }
+      #saveBtn:hover { background: #0066cc; }
+      #saveBtn.disconnect { background: #ff453a; }
+      #saveBtn.disconnect:hover { background: #cc3b32; }
+      label { color: #98989d; }
+      input, select {
+        background: #2c2c2e;
+        color: #f5f5f7;
+        border-color: #3a3a3c;
+      }
+input::placeholder { color: #636366; }
+      input:focus, select:focus {
+        border-color: #0a84ff;
+      }
+      .toggle-password { color: #98989d; }
+      .toggle-password:hover { color: #f5f5f7; }
+      input:disabled, select:disabled {
+        opacity: 0.6;
+      }
+
+      #status.error { background: #2d1f1f; color: #ff453a; }
+      #status.success { background: #1f2d1f; color: #32d74b; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2 id="heading">Login</h2>
+      <p class="subtitle">LibreLinkUp account credentials</p>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="your@email.com" autocomplete="username" />
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <div class="password-wrapper">
+        <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" />
+        <button type="button" id="togglePassword" class="toggle-password">
+          <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          <svg id="eyeOffIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+            <line x1="1" y1="1" x2="23" y2="23"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="units">Units</label>
+      <div class="select-wrapper">
+        <select id="units">
+          <option value="mgdl">mg/dL</option>
+          <option value="mmol">mmol/L</option>
+        </select>
+      </div>
+    </div>
+
+    <button id="saveBtn" style="width: 100%;">Connect</button>
+
+    <div id="status"></div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
