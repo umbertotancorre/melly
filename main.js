@@ -111,7 +111,7 @@ function openSettings() {
 
   settingsWindow = new BrowserWindow({
     resizable: false,
-    title: 'Melly — Settings',
+    title: 'Melly Settings',
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
